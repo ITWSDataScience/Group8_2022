@@ -37,8 +37,19 @@ corrplot(cor(df_init),        # Correlation matrix
 
 hist(df_init$ALLSKY_KT)
 
+pmbox = list()
+for (x in 1:10000)
+{
+  y <- sample(1:length(earn$pm2.5), 1)
+  pmbox <- append(pmbox, earn$pm2.5[y])
+}
+
+boxplot(unlist(pmbox), data=df_init, 
+        ylab ="Amount (Âµg/mÂ³)", xlab ="PM2.5",
+        main = "Box Plot of PM2.5 Data")
+
 boxplot(df_init$pm2.5, data=df_init, 
-        ylab ="Amount (µg/m³)", xlab ="PM2.5",
+        ylab ="Amount (Âµg/m^3)", xlab ="PM2.5",
         main = "Box Plot of PM2.5 Data")
 
 boxplot(df_init$AOD_55, data=df_init, 
@@ -50,9 +61,22 @@ boxplot(df_init$ALLSKY_SFC_LW_DWN, data=df_init,
         main = "Box Plot of All Sky Surface Longwave Downward Irradiance Data",
         cex.main = 0.8)
 
+boxplot(df_init$Latitude, data=df_init, 
+        ylab ="Latitude", xlab ="Latitude Boxplot",
+        main = "Box Plot of Latitude Data",
+        cex.main = 0.8)
+
+
+boxplot(df_init$Longitude, data=df_init, 
+        ylab ="Longitude", xlab ="Longitude Boxplot",
+        main = "Box Plot of Longitude Data",
+        cex.main = 0.8)
+
 
 summary(df_init$pm2.5)
 summary(df_init$AOD_55)
+summary(df_init$Latitude)
+summary(df_init$Longitude)
 summary(df_init$ALLSKY_SFC_LW_DWN)
 
 d <- density(df_init$pm2.5)
@@ -85,4 +109,24 @@ barplot(table(unlist(aqs)), las=2, cex.names=.5,
         ylab ="Frequency", xlab ="Site number",
         main = "Frequency of Randomly Selected 1000 test sites")
 
+lat = list()
+for (x in 1:1000)
+{
+  y <- sample(1:length(earn$Latitude), 1)
+  lat <- append(lat, earn$Latitude[y])
+}
 
+barplot(table(unlist(lat)), las=2, cex.names=.5, 
+        ylab ="Frequency", xlab ="Latitude Values",
+        main = "Frequency of Randomly Selected 1000 Latitude Values")
+
+long = list()
+for (x in 1:1000)
+{
+  y <- sample(1:length(earn$Longitude), 1)
+  long <- append(long, earn$Longitude[y])
+}
+
+barplot(table(unlist(long)), las=2, cex.names=.5, 
+        ylab ="Frequency", xlab ="Longitude Values",
+        main = "Frequency of Randomly Selected 1000 Longitude Values")
